@@ -1,23 +1,16 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Assignment1 from './assignment_1/AllRoutes/Assignment1';
+import Assignment2 from './assignment_2/Assignment2';
+import Assignment3 from './assignment_3/Assignment3';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <Assignment1/>
+       {/* <Assignment2/> */}
+       {/* <Assignment3/> */}
     </div>
   );
 }
