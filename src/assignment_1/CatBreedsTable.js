@@ -1,13 +1,15 @@
-import "./style.css";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function CatBreedsTable() {
   const [apidata, setApiData] = useState([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     axios.get("https://catfact.ninja/breeds").then((res) => {
       setApiData(res.data.data);
+      setLoading(false); 
     });
   }, []);
 
@@ -21,12 +23,18 @@ export default function CatBreedsTable() {
           </tr>
         </thead>
         <tbody>
-          {apidata.map((ele, i) => (
-            <tr key={i}>
-              <td>{ele.breed}</td>
-              <td>{ele.country}</td>
+          {loading ? (
+            <tr>
+              <td colSpan="2">Please wait...</td>
             </tr>
-          ))}
+          ) : (
+            apidata.map((ele, i) => (
+              <tr key={i}>
+                <td>{ele.breed}</td>
+                <td>{ele.country}</td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

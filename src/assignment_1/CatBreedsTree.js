@@ -11,7 +11,7 @@ export default function CatBreedsTree() {
     });
   }, []);
 
-  // Group the data by country
+  //  the data Group by country
   const groupedData = apidata.reduce((acc, ele) => {
     if (!acc[ele.country]) {
       acc[ele.country] = [];

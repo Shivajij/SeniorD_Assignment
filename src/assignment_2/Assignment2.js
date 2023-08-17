@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserForm from './UserForm';
 import UserList from './UserList';
 import ThemeToggle from './ThemeToggle';
-import '../App.css'; // Import the CSS file
+import '../App.css'; 
 
 const Assignment2 = () => {
   const [users, setUsers] = useState([]);

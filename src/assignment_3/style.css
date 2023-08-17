@@ -3,38 +3,6 @@ body {
     margin: 20px;
   }
   
-  .App {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .add-todo {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .add-todo input[type="text"],
-  .add-todo select {
-    margin-right: 10px;
-  }
-  
-  .todo-item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 5px;
-  }
-  
-  .todo-item.completed {
-    text-decoration: line-through;
-    color: #888;
-  }
-  
-  .alert-icon {
-    color: red;
-    margin-left: 5px;
-  }
-  
   /* Optional: To style the Dragging indicator */
   .react-draggable-dragging {
     opacity: 0.5;

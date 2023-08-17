@@ -8,9 +8,9 @@ import Assignment3 from './assignment_3/Assignment3';
 function App() {
   return (
     <div className="App">
-       <Assignment1/>
+       {/* <Assignment1/> */}
        {/* <Assignment2/> */}
-       {/* <Assignment3/> */}
+       <Assignment3/>
     </div>
   );
 }

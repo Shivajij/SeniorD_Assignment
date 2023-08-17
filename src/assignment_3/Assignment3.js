@@ -11,13 +11,15 @@ const priorities = {
 };
 
 function Assignment3() {
+  // State variables
   const [todos, setTodos] = useState([]);
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState(null);
   const [priority, setPriority] = useState("medium");
   const [systemDate, setSystemDate] = useState(new Date());
-  const [editingTodoId, setEditingTodoId] = useState(null); // State to track the ID of the TODO being edited
+  const [editingTodoId, setEditingTodoId] = useState(null);
 
+  // Function to add a new todo
   const handleAddTodo = () => {
     if (description && dueDate) {
       const newTodo = {
@@ -34,6 +36,7 @@ function Assignment3() {
     }
   };
 
+  // Function to toggle completion status of a todo
   const handleToggleComplete = (id) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -41,6 +44,7 @@ function Assignment3() {
     setTodos(updatedTodos);
   };
 
+  // Function to handle the end of dragging an item
   const handleDragEnd = (result) => {
     if (!result.destination) return;
     const items = Array.from(todos);
@@ -49,20 +53,21 @@ function Assignment3() {
     setTodos(items);
   };
 
+  // Function to initiate editing a todo
   const handleEditTodo = (todo) => {
-    // Set the state to the details of the TODO being edited
     setEditingTodoId(todo.id);
     setDescription(todo.description);
     setDueDate(todo.dueDate);
     setPriority(todo.priority);
   };
 
+  // Function to save edits made to a todo
   const handleSaveEdit = () => {
-    // Find the TODO being edited in the todos array
-    const editedTodoIndex = todos.findIndex((todo) => todo.id === editingTodoId);
+    const editedTodoIndex = todos.findIndex(
+      (todo) => todo.id === editingTodoId
+    );
 
     if (editedTodoIndex !== -1) {
-      // Update the TODO with the edited details
       const updatedTodos = [...todos];
       updatedTodos[editedTodoIndex] = {
         ...updatedTodos[editedTodoIndex],
@@ -71,29 +76,34 @@ function Assignment3() {
         priority,
       };
 
-      // Clear the editing state
       setEditingTodoId(null);
       setDescription("");
       setDueDate(null);
       setPriority("medium");
 
-      // Update the todos state with the updated array
       setTodos(updatedTodos);
     }
   };
 
+  // Function to cancel editing a todo
   const handleCancelEdit = () => {
-    // Clear the editing state
     setEditingTodoId(null);
     setDescription("");
     setDueDate(null);
     setPriority("medium");
   };
 
+  // Function to remove all todos
+  const handleRemoveAll = () => {
+    setTodos([]);
+  };
+
+  // Rendering the component
   return (
     <div className="App">
       <h1>TODO App</h1>
       <div className="add-todo">
+        {/* Input fields for adding new todos */}
         <label htmlFor="system-date">Mimic System Date:</label>
         <DatePicker
           id="system-date"
@@ -118,6 +128,8 @@ function Assignment3() {
           <option value="low">Low</option>
         </select>
         <button onClick={handleAddTodo}>Add TODO</button>
+        <button onClick={handleRemoveAll}>Remove All</button>{" "}
+        {/* Button to remove all todos */}
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="todo-list">
@@ -127,17 +139,24 @@ function Assignment3() {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
+              {/* Mapping through todos and rendering them */}
               {todos.map((todo, index) => (
-                <Draggable key={todo.id} draggableId={todo.id.toString()} index={index}>
+                <Draggable
+                  key={todo.id}
+                  draggableId={todo.id.toString()}
+                  index={index}
+                >
                   {(provided) => (
                     <div
-                      className={`todo-item ${todo.completed ? 'completed' : ''}`}
+                      className={`todo-item ${
+                        todo.completed ? "completed" : ""
+                      }`}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
+                      {/* Conditionally rendering based on whether editing */}
                       {editingTodoId === todo.id ? (
-                        // Render the edit form when editingTodoId matches the TODO's ID
                         <>
                           <input
                             type="text"
@@ -163,9 +182,9 @@ function Assignment3() {
                           <button onClick={handleCancelEdit}>Cancel</button>
                         </>
                       ) : (
-                        // Render the regular TODO item view
                         <>
                           <input
+                            style={{ cursor: "pointer" }}
                             type="checkbox"
                             checked={todo.completed}
                             onChange={() => handleToggleComplete(todo.id)}
@@ -177,9 +196,12 @@ function Assignment3() {
                             <span className="alert-icon">⚠</span>
                           )}
                           <span className="due-date">
-                            Due Date: {new Date(todo.dueDate).toLocaleDateString()}
+                            Due Date:{" "}
+                            {new Date(todo.dueDate).toLocaleDateString()}
                           </span>
-                          <button onClick={() => handleEditTodo(todo)}>Edit</button>
+                          <button onClick={() => handleEditTodo(todo)}>
+                            Edit
+                          </button>
                         </>
                       )}
                     </div>
